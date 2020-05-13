@@ -1,12 +1,19 @@
 import React from "react";
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, StyleSheet, Button} from "react-native";
 
-export const MainScreen = ({}) => {
+export const MainScreen = ({navigation}) => {
   return (
       <View style={styles.center}>
           <Text>MainScreen</Text>
+          <Button title="Post" onPress={() => {
+            navigation.navigate("Post");
+          }}/>
       </View>
   );
+};
+
+MainScreen.navigationOptions = {
+    headerTitle: "My blog"
 };
 
 const styles = StyleSheet.create({
