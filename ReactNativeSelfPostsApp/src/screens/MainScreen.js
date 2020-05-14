@@ -11,6 +11,7 @@ export const MainScreen = ({navigation}) => {
             {
                 postId: post.id,
                 postDate: post.date,
+                booked: post.booked,
             });
     };
 
