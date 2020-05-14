@@ -1,25 +1,64 @@
 import React from "react";
-import {View, Text, StyleSheet, Button} from "react-native";
+import {View, StyleSheet, FlatList} from "react-native";
+import {DATA} from "../data";
+import {Post} from "../components/Post";
+import {HeaderButtons, Item} from "react-navigation-header-buttons";
+import {AppHeaderIcon} from "../components/AppHeaderIcon";
 
 export const MainScreen = ({navigation}) => {
-  return (
-      <View style={styles.center}>
-          <Text>MainScreen</Text>
-          <Button title="Post" onPress={() => {
-            navigation.navigate("Post");
-          }}/>
-      </View>
-  );
+    const goToPost = (post) => {
+        navigation.navigate("Post",
+            {
+                postId: post.id,
+                postDate: post.date,
+            });
+    };
+
+    return (
+        <View style={styles.wrapper}>
+            <FlatList
+                data={DATA}
+                keyExtractor={post => {
+                    return post.id.toString();
+                }}
+                renderItem={({item}) => {
+                    return (
+                        <Post post={item} onOpen={goToPost}/>
+                    );
+                }}
+            />
+        </View>
+    );
 };
 
 MainScreen.navigationOptions = {
-    headerTitle: "My blog"
+    headerTitle: "My blog",
+    headerRight: () => {
+        return (
+            <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                <Item title="Take photo"
+                      iconName="ios-camera"
+                      onPress={() => {
+                          console.log("photo");
+                      }}/>
+            </HeaderButtons>
+        );
+    },
+    headerLeft: () => {
+        return (
+            <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                <Item title="Toggle drawer"
+                      iconName="ios-menu"
+                      onPress={() => {
+                          console.log("open menu");
+                      }}/>
+            </HeaderButtons>
+        );
+    },
 };
 
 const styles = StyleSheet.create({
-   center: {
-       flex: 1,
-       justifyContent: "center",
-       alignItems: "center"
-   }
+    wrapper: {
+        padding: 10
+    }
 });
