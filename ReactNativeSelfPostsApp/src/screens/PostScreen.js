@@ -61,7 +61,7 @@ PostScreen.navigationOptions = ({navigation}) => {
     const postId = navigation.getParam("postId");
     const postDate = navigation.getParam("postDate");
     const booked = navigation.getParam("booked");
-    const iconName = booked ? "iso-star" : "ios-star-outline";
+    const iconName = booked ? "ios-star" : "ios-star-outline";
 
     return {
         headerTitle: `Post ${postId}, ${new Date(postDate).toLocaleDateString()}`,
