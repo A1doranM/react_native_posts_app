@@ -59,6 +59,7 @@ const bottomTabsConfig = {
 
 const BottomNavigator = Platform.OS === "android" ? createMaterialBottomTabNavigator(bottomTabsConfig, {
         activeTintColor: "#fff",
+        shifting: true,
         barStyle: {
             backgroundColor: THEME.MAIN_COLOR
         }
