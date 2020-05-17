@@ -9,6 +9,9 @@ import {Ionicons} from "@expo/vector-icons";
 import {BookedScreen} from "../screens/BookedScreen";
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
+import {createDrawerNavigator} from "react-navigation-drawer";
+import {AboutScreen} from "../screens/AboutScreen";
+import {CreateScreen} from "../screens/CreateScreen";
 
 const navigatorOptions = {
     headerStyle: {
@@ -64,4 +67,16 @@ const BottomNavigator = Platform.OS === "android" ? createMaterialBottomTabNavig
         }
     });
 
-export const AppNavigation = createAppContainer(BottomNavigator);
+const MainNavigator = createDrawerNavigator({
+    PostTabs: {
+      screen: BottomNavigator
+    },
+    About: {
+        screen: AboutScreen
+    },
+    Create: {
+        screen: CreateScreen
+    }
+});
+
+export const AppNavigation = createAppContainer(MainNavigator);

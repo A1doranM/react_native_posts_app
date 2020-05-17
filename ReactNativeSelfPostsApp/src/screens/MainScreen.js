@@ -20,28 +20,30 @@ export const MainScreen = ({navigation}) => {
     );
 };
 
-MainScreen.navigationOptions = {
-    headerTitle: "My blog",
-    headerRight: () => {
-        return (
-            <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-                <Item title="Take photo"
-                      iconName="ios-camera"
-                      onPress={() => {
-                          console.log("photo");
-                      }}/>
-            </HeaderButtons>
-        );
-    },
-    headerLeft: () => {
-        return (
-            <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-                <Item title="Toggle drawer"
-                      iconName="ios-menu"
-                      onPress={() => {
-                          console.log("open menu");
-                      }}/>
-            </HeaderButtons>
-        );
-    },
+MainScreen.navigationOptions = ({navigation}) => {
+    return {
+        headerTitle: "My blog",
+        headerRight: () => {
+            return (
+                <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                    <Item title="Take photo"
+                          iconName="ios-camera"
+                          onPress={() => {
+                              console.log("photo");
+                          }}/>
+                </HeaderButtons>
+            );
+        },
+        headerLeft: () => {
+            return (
+                <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                    <Item title="Toggle drawer"
+                          iconName="ios-menu"
+                          onPress={() => {
+                             navigation.toggleDrawer();
+                          }}/>
+                </HeaderButtons>
+            );
+        },
+    };
 };

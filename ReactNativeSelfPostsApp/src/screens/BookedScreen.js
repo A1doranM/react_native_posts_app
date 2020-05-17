@@ -17,7 +17,7 @@ export const BookedScreen = ({navigation}) => {
     return (
        <PostList
            data={DATA}
-           onOpen={goToPost()}
+           onOpen={goToPost}
        />
     );
 };
