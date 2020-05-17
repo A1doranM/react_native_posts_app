@@ -81,13 +81,29 @@ const CreateNavigator = createStackNavigator({
 
 const MainNavigator = createDrawerNavigator({
     PostTabs: {
-      screen: BottomNavigator
+        screen: BottomNavigator,
+        navigationOptions: {
+            drawerLabel: "Home",
+        },
     },
     About: {
-        screen: AboutNavigator
+        screen: AboutNavigator,
+        navigationOptions: {
+            drawerLabel: "About us"
+        },
     },
     Create: {
-        screen: CreateNavigator
+        screen: CreateNavigator,
+        navigationOptions: {
+            drawerLabel: "Create post"
+        },
+    }
+}, {
+    contentOptions: {
+        activeTintColor: THEME.MAIN_COLOR,
+        labelStyle: {
+            fontFamily: "open-bold"
+        }
     }
 });
 
