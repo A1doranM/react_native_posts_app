@@ -16,7 +16,7 @@ export const MainScreen = ({navigation}) => {
     };
 
     return (
-      <PostList data={DATA} onOpen={goToPost}/>
+        <PostList data={DATA} onOpen={goToPost}/>
     );
 };
 
@@ -29,7 +29,7 @@ MainScreen.navigationOptions = ({navigation}) => {
                     <Item title="Take photo"
                           iconName="ios-camera"
                           onPress={() => {
-                              console.log("photo");
+                              navigation.push("Create");
                           }}/>
                 </HeaderButtons>
             );
@@ -40,7 +40,7 @@ MainScreen.navigationOptions = ({navigation}) => {
                     <Item title="Toggle drawer"
                           iconName="ios-menu"
                           onPress={() => {
-                             navigation.toggleDrawer();
+                              navigation.toggleDrawer();
                           }}/>
                 </HeaderButtons>
             );
