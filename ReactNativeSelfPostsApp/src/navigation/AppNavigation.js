@@ -10,19 +10,18 @@ import {BookedScreen} from "../screens/BookedScreen";
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
 
+const navigatorOptions = {
+    headerStyle: {
+        backgroundColor: Platform.OS === "android" ? THEME.MAIN_COLOR : "#fff",
+    },
+    headerTintColor: Platform.OS === "android" ? "#fff" : THEME.MAIN_COLOR,
+};
+
 const PostNavigator = createStackNavigator({
     Main: MainScreen,
-    Post: {
-        screen: PostScreen
-    },
+    Post: PostScreen,
 }, {
-    initialRouteName: "Main",
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: Platform.OS === "android" ? THEME.MAIN_COLOR : "#fff",
-        },
-        headerTintColor: Platform.OS === "android" ? "#fff" : THEME.MAIN_COLOR,
-    },
+    defaultNavigationOptions: navigatorOptions,
 });
 
 const BookedNavigator = createStackNavigator({
@@ -31,12 +30,7 @@ const BookedNavigator = createStackNavigator({
     },
     {
         initialRouteName: "Booked",
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: Platform.OS === "android" ? THEME.MAIN_COLOR : "#fff",
-            },
-            headerTintColor: Platform.OS === "android" ? "#fff" : THEME.MAIN_COLOR,
-        },
+        defaultNavigationOptions: navigatorOptions,
     }
 );
 
