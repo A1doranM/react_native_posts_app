@@ -6,7 +6,7 @@ import {AppHeaderIcon} from "../components/AppHeaderIcon";
 export const AboutScreen = ({}) => {
   return (
       <View style={styles.center}>
-          <Text>AboutScreen</Text>
+          <Text>My test application for notes</Text>
       </View>
   );
 };

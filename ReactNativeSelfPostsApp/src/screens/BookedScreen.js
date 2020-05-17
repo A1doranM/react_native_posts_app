@@ -15,24 +15,26 @@ export const BookedScreen = ({navigation}) => {
     };
 
     return (
-       <PostList
-           data={DATA}
-           onOpen={goToPost}
-       />
+        <PostList
+            data={DATA}
+            onOpen={goToPost}
+        />
     );
 };
 
-BookedScreen.navigationOptions = {
-    headerTitle: "Favourites",
-    headerLeft: () => {
-        return (
-            <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-                <Item title="Toggle drawer"
-                      iconName="ios-menu"
-                      onPress={() => {
-                          console.log("open menu");
-                      }}/>
-            </HeaderButtons>
-        );
-    },
+BookedScreen.navigationOptions = ({navigation}) => {
+    return {
+        headerTitle: "Favourites",
+        headerLeft: () => {
+            return (
+                <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+                    <Item title="Toggle drawer"
+                          iconName="ios-menu"
+                          onPress={() => {
+                              navigation.toggleDrawer();
+                          }}/>
+                </HeaderButtons>
+            );
+        },
+    };
 };
