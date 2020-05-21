@@ -1,9 +1,10 @@
-import React from "react";
-import {DATA} from "../data";
+import React, {useEffect} from "react";
 import {Post} from "../components/Post";
+import {useDispatch, useSelector} from "react-redux";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
 import {PostList} from "../components/PostList";
+import {loadPosts} from "../store/actions/post";
 
 export const MainScreen = ({navigation}) => {
     const goToPost = (post) => {
@@ -15,8 +16,16 @@ export const MainScreen = ({navigation}) => {
             });
     };
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(loadPosts());
+    }, [dispatch]);
+
+    const allPosts = useSelector(state => state.post.allPosts);
+
     return (
-        <PostList data={DATA} onOpen={goToPost}/>
+        <PostList data={allPosts} onOpen={goToPost}/>
     );
 };
 

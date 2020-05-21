@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useCallback} from "react";
 import {
     View,
     Text,
@@ -8,20 +8,35 @@ import {
     Alert,
     ScrollView
 } from "react-native";
+
 import {DATA} from "../data";
 import {THEME} from "../theme";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
+import {useDispatch, useSelector} from "react-redux";
+import {toggleBooked} from "../store/actions/post";
 
 export const PostScreen = ({navigation}) => {
     const postId = navigation.getParam("postId");
     const post = DATA.find(p => p.id === postId);
 
-    // useEffect(() => {
-    //     navigation.setParams({
-    //         booked: post.booked,
-    //     });
-    // }, []);
+    const dispatch = useDispatch();
+
+    const booked = useSelector(state =>
+        state.post.bookedPosts.some(post => post.id === postId)
+    );
+
+    useEffect(() => {
+       navigation.setParams({booked: post.booked});
+    }, [booked]);
+
+    const toggleHandler = useCallback(() => {
+        dispatch(toggleBooked(postId));
+    }, [dispatch, postId]);
+
+    useEffect(() => {
+        navigation.setParams({toggleHandler: toggleHandler})
+    }, [toggleHandler]);
 
     const removeHandler = () => {
         Alert.alert(
@@ -61,6 +76,7 @@ PostScreen.navigationOptions = ({navigation}) => {
     const postId = navigation.getParam("postId");
     const postDate = navigation.getParam("postDate");
     const booked = navigation.getParam("booked");
+    const toggleHandler = navigation.getParam("toggleHandler");
     const iconName = booked ? "ios-star" : "ios-star-outline";
 
     return {
@@ -70,9 +86,7 @@ PostScreen.navigationOptions = ({navigation}) => {
                 <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
                     <Item title="Star post"
                           iconName={iconName}
-                          onPress={() => {
-                              console.log("star");
-                          }}/>
+                          onPress={toggleHandler}/>
                 </HeaderButtons>
             );
         },
