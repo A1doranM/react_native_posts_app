@@ -1,10 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {
     View,
     Text,
     StyleSheet,
     TextInput,
-    Image,
     Button,
     ScrollView,
     TouchableWithoutFeedback,
@@ -15,20 +14,26 @@ import {AppHeaderIcon} from "../components/AppHeaderIcon";
 import {THEME} from "../theme";
 import {useDispatch} from "react-redux";
 import {addPost} from "../store/actions/post";
+import {PhotoPicker} from "../components/PhotoPicker";
 
 export const CreateScreen = ({navigation}) => {
-    const [text, setText] = useState("");
+    let [text, setText] = useState("");
+    const imgRef = useRef();
     const dispatch = useDispatch();
 
     const saveHandler = () => {
         const post = {
             date: new Date().toJSON(),
             text: text,
-            img: 'https://static.coindesk.com/wp-content/uploads/2019/01/shutterstock_1012724596-860x430.jpg',
+            img: imgRef.current,
             booked: false,
         };
         dispatch(addPost(post));
         navigation.navigate("Main");
+    };
+
+    const photoPickHandler = (uri) => {
+        imgRef.current = uri;
     };
 
     return (
@@ -42,19 +47,17 @@ export const CreateScreen = ({navigation}) => {
                         style={styles.textarea}
                         placeholder="Write post text"
                         value={text}
-                        onChange={setText}
+                        onChangeText={(txt) => {
+                            setText(txt)
+                        }}
                         multiline
                     />
-                    <Image
-                        style={{width: "100%", height: 200, marginBottom: 10}}
-                        source={{
-                            uri:
-                                'https://static.coindesk.com/wp-content/uploads/2019/01/shutterstock_1012724596-860x430.jpg',
-                        }}/>
+                    <PhotoPicker onPick={photoPickHandler}/>
                     <Button
                         title="Create post"
                         color={THEME.MAIN_COLOR}
                         onPress={saveHandler}
+                        disabled={!text}
                     />
                 </View>
             </TouchableWithoutFeedback>
